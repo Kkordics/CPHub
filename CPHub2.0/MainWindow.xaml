@@ -1,0 +1,180 @@
+﻿<Window x:Class="CPHub2._0.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CPHub2._0"
+        mc:Ignorable="d"
+         Visibility="Visible"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        ShowInTaskbar="False"
+        SizeToContent="Manual"
+        Closing="Window_Closing"
+        Title="CPHub" Height="200" Width="400">
+    <Grid>
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15"/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+
+        <Grid Visibility="Hidden" Background="{Binding Background_}" Panel.ZIndex="1" x:Name="SettingsMenu" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Button Click="HideSettings" HorizontalAlignment="Left" Width="70" Background="{Binding Background_}" Foreground="{Binding Foreground_}" Content="&lt;-- Back" />
+            <ListView x:Name="ColorList" SelectionMode="Single" Grid.Row="1" Background="{Binding Background_}" ItemsSource="{Binding Colors}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ToolTip="Color Layout" Height="18">
+
+                            <Canvas Margin="0,5,0,0">
+                                <Rectangle Height="10" Width="10" StrokeThickness="1" Stroke="Black" Fill="{Binding Color1}"/>
+                                <Rectangle Margin="10,0,0,0" Height="10" Width="10" StrokeThickness="1" Stroke="Black" Fill="{Binding Color2}"/>
+                                <Rectangle Margin="20,0,0,0" Height="10" Width="10" StrokeThickness="1" Stroke="Black" Fill="{Binding Color3}"/>
+                                <Rectangle Margin="30,0,0,0" Height="10" Width="10" StrokeThickness="1" Stroke="Black" Fill="{Binding Color4}"/>
+                                <Rectangle Margin="40,0,0,0" Height="10" Width="10" StrokeThickness="1" Stroke="Black" Fill="{Binding Color5}"/>
+                                <Rectangle Margin="50,0,0,0" Height="10" Width="10" StrokeThickness="1" Stroke="Black" Fill="{Binding Color6}"/>
+                            </Canvas>
+                            <TextBlock Margin="70,0,0,0" Foreground="{Binding ForeGround}" Text="{Binding SetStatusz}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="PreviewMouseLeftButtonUp" Handler="ColorPalettItem" />
+
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </Grid>
+
+
+        <Grid Name="titleBar" Grid.Row="0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button ToolTip="Hide Application" Click="HideApp" FontWeight="Bold" Background="LightGray" Grid.Column="0" Content="-" />
+            <Button ToolTip="Close Application" VerticalContentAlignment="Bottom" Click="CloseApp" Background="Red" Foreground="White" Grid.Column="1" Content="X" />
+        </Grid>
+
+        <Grid Grid.Row="1" Name="Bars" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Button Click="DeleteAll" ToolTip="Delete Saved Copys" Content="DELETE" Foreground="White" Grid.Row="0" Background="{Binding Button1}" />
+            <Button Click="SaveAllCheckedCopy" ToolTip="Save all Copy" Content="SAVE" Foreground="White" Grid.Row="1" Background="{Binding Button2}" />
+            <Button Click="RemoveAll" Background="{Binding Button3}" Foreground="White" Content="Remove" ToolTip="Remove All Checked Copy" Grid.Row="2" />
+            <Button Click="ShowSettings" ToolTip="Settings" Content="SETTINGS" Foreground="White" Grid.Row="3" Background="{Binding Button4}" />
+
+        </Grid>
+
+
+        <Button x:Name="CheckButton" Click="CheckButton_Click" ToolTip="Click To Check All Copys" Grid.Row="2" Grid.Column="1"  Background="{Binding Button5}" Foreground="White" FontSize="10" Content="CHECK" />
+
+        <TextBox ToolTip="Rename Copy" KeyDown="NameingBox_KeyDown" FontWeight="DemiBold" Foreground="{Binding Foreground_}" MaxLength="70" x:Name="NameingBox" Background="{Binding Background_}" Grid.Row="2" />
+
+        <Border BorderThickness="1" BorderBrush="Black" x:Name="ShowPanel" Panel.ZIndex="1" Visibility="Hidden" Grid.Row="1" Grid.Column="0" Background="{Binding Background_}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBox Background="{Binding Background_}" Foreground="{Binding Foreground_}" BorderThickness="0" IsReadOnly="True" VerticalScrollBarVisibility="Visible" Margin="3" Grid.Row="1" x:Name="ShowText" TextWrapping="WrapWithOverflow" Text="Teszt szöveg hogy hogy fér ki a cucc" />
+                <Button Content="X" Click="CloseTextPanel" BorderBrush="Black" BorderThickness="1" Background="red"  HorizontalAlignment="Right" Width="20" Grid.Row="0" ToolTip="Close" />
+            </Grid>
+
+        </Border>
+        <Border BorderThickness="1" BorderBrush="Black" x:Name="ShowFilePanel" Panel.ZIndex="1" Visibility="Hidden" Grid.Row="1" Grid.Column="0" Background="{Binding Background_}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button Content="X" Click="CloseTextPanel" BorderBrush="Black" BorderThickness="1" Background="red"  HorizontalAlignment="Right" Width="20" Grid.Row="0" ToolTip="Close" />
+                <ListView x:Name="FilePanel" Grid.Row="1" ItemsSource="{Binding FilesPropertiesProjector}" Background="{Binding Background_}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="0" Width="20" Height="20" Source="{Binding Icon}" />
+                                <TextBlock FontWeight="Bold" Margin="4,0,0,0" Grid.Column="1" Foreground="{Binding ForegroundColor}" Text="{Binding Name}" />
+
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+
+        </Border>
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <ListView Background="{Binding Background_, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" ItemsSource="{Binding ListView}" x:Name="CopyList">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+
+                        <Grid ToolTip="Right Click For More Operation">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="18"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <Border  CornerRadius="10" BorderThickness="1" BorderBrush="{Binding ForegroundColor}" Grid.Column="0">
+                                <TextBlock FontWeight="Black" Margin="1,0,0,0" TextAlignment="Center"  Foreground="{Binding ForegroundColor}"  Text="{Binding Index}" />
+                            </Border>
+
+
+                            <TextBlock MaxWidth="240" Margin="3,0,0,0" Foreground="{Binding ForegroundColor}" Grid.Column="1" Text="{Binding Name}"/>
+                            <TextBlock Foreground="DimGray" Grid.Column="2" Text="{Binding SaveStatusz}" />
+                            <TextBlock Margin="4,0,0,0" Foreground="DimGray" Text="{Binding ContentType}" Grid.Column="3" />
+                            <CheckBox IsChecked="{Binding CheckBoxState}" Visibility="{Binding CheckBoxVisibility}" Grid.Column="4" />
+                        </Grid>
+
+
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="PreviewMouseLeftButtonUp" Handler="ListViewItem_PreviewMouseLeftButtonDown" />
+
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem ToolTip="Show Current Copy" Header="Show" Click="Show"/>
+                        <MenuItem ToolTip="Remove Current Copy From Ram" Header="Remove" Click="Remove"/>
+                        <MenuItem ToolTip="Save Current Copy" Header="Save" Click="Save" />
+                        <MenuItem ToolTip="Delete Saved Copy" Header="Delete" Click="DeleteSelectedCopy" />
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+        </Grid>
+
+
+    </Grid>
+</Window>
