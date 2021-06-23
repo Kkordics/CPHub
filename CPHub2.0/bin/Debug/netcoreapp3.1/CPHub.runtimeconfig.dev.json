@@ -1,0 +1,9 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "H:\\Users\\Kkordics\\.dotnet\\store\\|arch|\\|tfm|",
+      "H:\\Users\\Kkordics\\.nuget\\packages",
+      "H:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet"
+    ]
+  }
+}
